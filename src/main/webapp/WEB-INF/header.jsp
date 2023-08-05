@@ -24,7 +24,7 @@
         </a>
         <ul class="nav nounderline text-uppercase">
             <li class="nav-item ml-4">
-                <a class="nav-link" href="<c:url value="/new-claim"/>">New claim</a>
+                <a class="nav-link" href="<c:url value="/claim/new"/>">New claim</a>
             </li>
         </ul>
     </nav>
