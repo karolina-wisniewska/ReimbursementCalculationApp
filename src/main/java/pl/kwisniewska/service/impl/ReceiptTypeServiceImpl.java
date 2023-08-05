@@ -1,14 +1,15 @@
-package pl.kwisniewska.service;
+package pl.kwisniewska.service.impl;
 
 import pl.kwisniewska.model.ReceiptType;
+import pl.kwisniewska.service.ReceiptTypeService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ReceiptTypeServiceImpl implements ReceiptTypeService{
+public class ReceiptTypeServiceImpl implements ReceiptTypeService {
 
-    private List<ReceiptType> list;
+    private final List<ReceiptType> list;
 
     private static Long nextId = 0L;
     public ReceiptTypeServiceImpl() {
@@ -40,6 +41,14 @@ public class ReceiptTypeServiceImpl implements ReceiptTypeService{
     public ReceiptType getReceiptTypeById(Long index) {
         return list.stream()
                 .filter(n -> n.getId().equals(index))
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public ReceiptType getReceiptTypeByName(String name) {
+        return list.stream()
+                .filter(n -> n.getName().equals(name))
                 .findAny()
                 .orElse(null);
     }
