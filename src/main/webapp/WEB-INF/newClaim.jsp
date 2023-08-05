@@ -9,64 +9,52 @@
     <div class="row dashboard-nowrap">
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <form action="<c:url value="/app/recipe/plan/add"/>" method="post">
+                <form action="<c:url value="/claim/calculate"/>" method="post">
                     <div class="row border-bottom border-3 p-1 m-1">
-                            <h3 class="color-header">Please fill the form to calculate reimbursement</h3>
+                            <h3 class="color-header">Fill the form to calculate business trip reimbursement</h3>
                     </div>
                     <div class="schedules-content">
+                        <c:forEach begin="1" end="5" var="sample">
+                            <div class="form-group row">
+                                <label for="receipt" + ${sample} class="col-sm-3 label-size col-form-label">
+                                    Receipt no. ${sample}
+                                </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" name="type" + ${sample} id="receipt" + ${sample}>
+                                        <c:forEach var="type" items="${receiptTypes}">
+                                            <option value="${type.id}">${type.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control" step="0.01" value="" id="number" placeholder="Paid amount ($)" name="displayOrder">
+                                </div>
+                            </div>
+                        </c:forEach>
+
                         <div class="form-group row">
-                            <label for="choosePlan" class="col-sm-3 label-size col-form-label">
-                                Receipt no. 1
+                            <label for="travelDays" class="col-sm-3 label-size col-form-label">
+                                Days in travel
                             </label>
                             <div class="col-sm-3">
-                                <select class="form-control" id="choosePlan" name="choosePlan">
-                                    <c:forEach var="plan" items="${userPlans}">
-                                        <option value="${plan.id}">${plan.name}</option>
-                                    </c:forEach>
-                                </select>
+                                <input type="number" class="form-control" value="" id="travelDays" name="travelDays">
+                            </div>
+                            <div class="col-sm-3">
+                                Daily rate: 15$
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 label-size col-form-label">
-                                Nazwa posiłku
+                            <label for="carMileage" class="col-sm-3 label-size col-form-label">
+                                Personal car mileage
                             </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" value="" id="name" placeholder="Nazwa posiłku" name="name">
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" value="" id="carMileage" name="carMileage">
+                            </div>
+                            <div class="col-sm-3">
+                                Rate: 0.3$/km
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="number" class="col-sm-2 label-size col-form-label">
-                                Numer posiłku
-                            </label>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" value="" id="number" placeholder="Numer posiłku" name="displayOrder">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="recipe" class="col-sm-2 label-size col-form-label">
-                                Przepis
-                            </label>
-                            <div class="col-sm-4">
-                                <select class="form-control" id="recipe" name="recipe">
-                                    <c:forEach var="recipe" items="${userRecipes}">
-                                        <option value="${recipe.id}">${recipe.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="day" class="col-sm-2 label-size col-form-label">
-                                Dzień
-                            </label>
-                            <div class="col-sm-2">
-                                <select class="form-control" id="day" name="day">
-                                    <c:forEach var="day" items="${dayNames}">
-                                        <option value="${day.id}">${day.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Calculate</button>
+                        <button type="submit" class="btn btn-success rounded-0.5 pt-0 pb-0 pr-4 pl-4">Calculate total amount</button>
                     </div>
                 </form>
             </div>
